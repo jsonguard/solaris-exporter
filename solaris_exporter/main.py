@@ -1236,7 +1236,7 @@ def start_http_server(port, addr='', registry=REGISTRY):
 
 
 
-if __name__ == '__main__':
+def main():
     assert psutil.SUNOS, 'This program is for Solaris OS only. See installation doc in its header'
     host_name = socket.gethostname()
 
@@ -1312,3 +1312,7 @@ if __name__ == '__main__':
         except KeyboardInterrupt:
             print("\nExit Requested\n")
             exit()
+
+
+if __name__ == '__main__':
+    main()
