@@ -2,7 +2,7 @@
 name = "solaris_exporter"
 version = "0.1.0"
 description = "Prometheus exporter for Solaris/SunOS operation systems"
-authors = ["Gureev Sergej <s.gureev@cft.ru>"]
+authors = ["Alexander Golikov <n27051538@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^2.7"
