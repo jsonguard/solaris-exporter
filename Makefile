@@ -24,46 +24,55 @@ tarball: binary-distribution
 		${ROOT_DIR}/dist/solaris_exporter-${VERSION}-${PLATFORM}.tar.gz \
 		./
 
+
 binary-distribution: wheel download-deps
 	@mkdir -p ${BUILD_DIR}/${PLATFORM}/dist-packages
-	@find ${BUILD_DIR}/packages/${PLATFORM} \
+	@find \
+		${BUILD_DIR}/packages/${PLATFORM} \
+		${BUILD_DIR}/wheel \
+		${VENDOR_DIR}/${PLATFORM} \
+		-maxdepth 1 \
 		-type f \
 		-name '*.whl' \
 		-exec \
 			unzip -u '{}' -d ${BUILD_DIR}/${PLATFORM}/dist-packages \; 
 	
-	@unzip -u dist/*.whl -d ${BUILD_DIR}/${PLATFORM}/dist-packages
 
 	@cp ${VENDOR_DIR}/run.sh ${BUILD_DIR}/${PLATFORM}
 	@chmod +x ${BUILD_DIR}/${PLATFORM}/run.sh
 
 
-wheel:
+wheel: build-dir
 	@poetry build \
 		--no-interaction \
-		--format wheel
+		--format wheel 
+	@cp dist/*.whl ${BUILD_DIR}
+	@cp dist/*.whl ${BUILD_DIR}/wheel
 
 
 download-deps: requirements-file 
-	poetry run pip download \
+	poetry run python -m pip download \
 		--no-input ${PIP_EXTRA_OPTIONS} \
-		-r ${BUILD_DIR}/requirements.txt \
+		-r ${BUILD_DIR}/requirements-without-vendored.txt \
 		--platform ${PLATFORM} \
-		--only-binary=:all: \
-		--dest ${BUILD_DIR}/packages/${PLATFORM} \
-		${VENDOR_DIR}/${PLATFORM}/*
+		--only-binary=:all:
 
 
 requirements-file: build-dir
 	@poetry export \
 		--without-hashes \
 		--no-interaction \
-		> ${BUILD_DIR}/requirements.txt
+		> ${BUILD_DIR}/poetry-requirements.txt
+	@poetry run python3 vendor/package_filter.py \
+		--input-file ${BUILD_DIR}/poetry-requirements.txt \
+		--output-file ${BUILD_DIR}/requirements-without-vendored.txt \
+		--vendor-dir vendor/${PLATFORM}
 
 
 build-dir:
 	@mkdir -p ${BUILD_DIR}/${PLATFORM}
 	@mkdir -p ${BUILD_DIR}/packages/${PLATFORM}
+	@mkdir -p ${BUILD_DIR}/wheel
 
 
 clean:

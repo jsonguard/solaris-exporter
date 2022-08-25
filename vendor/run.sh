@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 set -euo pipefail
 
@@ -17,4 +17,4 @@ DIST_PACKAGES=${PROJECT_DIR}/dist-packages
 export PYTHONPATH=$DIST_PACKAGES
 
 # Run solaris exporter with extra args
-/usr/bin/env python2.7 -m solaris_exporter.main $@
+/usr/bin/python2.7 -m solaris_exporter.main $@
