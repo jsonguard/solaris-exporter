@@ -19,12 +19,15 @@ Requirenments:
 How to build this project:
 
 1. Install correct version of Python locally
+
     `pyenv install`
 
 1. Install project dependencies
+
     `poetry install`
 
 1. Build project distributions
+
     `make`
 
 Done! You have these results:
