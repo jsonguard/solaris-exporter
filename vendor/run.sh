@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+export LANG=en_US.UTF-8
+
 ### Detect project directory
 SOURCE=${BASH_SOURCE[0]}
 while [ -L "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
