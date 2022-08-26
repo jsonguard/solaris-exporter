@@ -28,7 +28,7 @@ How to build this project:
 
 1. Build project distributions
 
-    `make`
+    `make PLATFORM=solaris-2.11-sun4v`
 
 Done! You have these results:
 
