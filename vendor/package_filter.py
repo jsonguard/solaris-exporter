@@ -31,7 +31,6 @@ def main(input_file: Path, output_file: Path, vendor_dir: Path) -> None:
             })
             log.debug("Collect required package: %s" % package)
  
-    print(required_packages)
     # collect vendored packages
     vendored_packages: list[dict] = list()
     for package_file in vendor_dir.rglob("*"):
