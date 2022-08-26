@@ -19,6 +19,7 @@ all: wheel tarball
 
 
 tarball: binary-distribution
+	@echo "=== Packing to tarball"
 	@cd ${BUILD_DIR}/${PLATFORM} &&\
 	tar -czf \
 		${ROOT_DIR}/dist/solaris_exporter-${VERSION}-${PLATFORM}.tar.gz \
@@ -26,6 +27,7 @@ tarball: binary-distribution
 
 
 binary-distribution: wheel download-deps
+	@echo "=== Create binary distribution"
 	@mkdir -p ${BUILD_DIR}/${PLATFORM}/dist-packages
 	@find \
 		${BUILD_DIR}/packages/${PLATFORM} \
@@ -35,7 +37,7 @@ binary-distribution: wheel download-deps
 		-type f \
 		-name '*.whl' \
 		-exec \
-			unzip -u '{}' -d ${BUILD_DIR}/${PLATFORM}/dist-packages \; 
+			unzip -q -u '{}' -d ${BUILD_DIR}/${PLATFORM}/dist-packages \; 
 	
 
 	@cp ${VENDOR_DIR}/run.sh ${BUILD_DIR}/${PLATFORM}
@@ -43,6 +45,7 @@ binary-distribution: wheel download-deps
 
 
 wheel: build-dir
+	@echo "=== Create wheel package"
 	@poetry build \
 		--no-interaction \
 		--format wheel 
@@ -51,14 +54,17 @@ wheel: build-dir
 
 
 download-deps: requirements-file 
-	poetry run python -m pip download \
+	@echo "=== Downlaod project pependencies"
+	@poetry run python -m pip download \
 		--no-input ${PIP_EXTRA_OPTIONS} \
 		-r ${BUILD_DIR}/requirements-without-vendored.txt \
 		--platform ${PLATFORM} \
-		--only-binary=:all:
+		--only-binary=:all: \
+		--quiet
 
 
 requirements-file: build-dir
+	@echo "=== Create pip requirenments files"
 	@poetry export \
 		--without-hashes \
 		--no-interaction \
@@ -70,10 +76,12 @@ requirements-file: build-dir
 
 
 build-dir:
+	@echo "=== Create build/ directory"
 	@mkdir -p ${BUILD_DIR}/${PLATFORM}
 	@mkdir -p ${BUILD_DIR}/packages/${PLATFORM}
 	@mkdir -p ${BUILD_DIR}/wheel
 
 
 clean:
+	@echo "=== Clean-up build/ and dist/ directories"
 	@rm -rf ${BUILD_DIR} dist/
