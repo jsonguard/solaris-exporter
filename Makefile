@@ -16,6 +16,7 @@ ROOT_DIR=$(shell pwd)
 
 
 all: wheel tarball
+	@echo "=== Done! Results available in dist/ directory"
 
 
 tarball: binary-distribution
@@ -54,7 +55,7 @@ wheel: build-dir
 
 
 download-deps: requirements-file 
-	@echo "=== Downlaod project pependencies"
+	@echo "=== Downlaod project dependencies"
 	@poetry run python -m pip download \
 		--no-input ${PIP_EXTRA_OPTIONS} \
 		-r ${BUILD_DIR}/requirements-without-vendored.txt \
