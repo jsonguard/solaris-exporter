@@ -1232,6 +1232,8 @@ def start_http_server(port, addr='', registry=REGISTRY):
     httpd.handle_error = my_http_error_handler
     t = threading.Thread(target=httpd.serve_forever)
     t.daemon = True
+    print("Start http listener on  %s:%s" % (addr, port))
+    print("Press Ctrl+C to exit")
     t.start()
 
 
