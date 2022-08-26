@@ -1238,13 +1238,18 @@ def start_http_server(port, addr='', registry=REGISTRY):
 
 def main():
     assert psutil.SUNOS, 'This program is for Solaris OS only. See installation doc in its header'
+    global host_name
     host_name = socket.gethostname()
 
     # this will be refreshed once in dictionaries_refresh_interval_sec
+    global disk_dictionary
     disk_dictionary = get_disk_dictionary()
+    global pset_dictionary
     pset_dictionary = get_pset_dictionary()
 
+    global prtdiag_return_code
     prtdiag_return_code = 0
+    global prtdiag_timeouted
     prtdiag_timeouted = False
 
     # collectors enabled for all zones:
