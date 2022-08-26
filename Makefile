@@ -21,6 +21,7 @@ all: wheel tarball
 
 tarball: binary-distribution
 	@echo "=== Packing to tarball"
+	@rm -f ${ROOT_DIR}/dist/solaris_exporter-${VERSION}-${PLATFORM}.tar.gz
 	@cd ${BUILD_DIR}/${PLATFORM} &&\
 	tar -czf \
 		${ROOT_DIR}/dist/solaris_exporter-${VERSION}-${PLATFORM}.tar.gz \
@@ -29,6 +30,7 @@ tarball: binary-distribution
 
 binary-distribution: wheel download-deps
 	@echo "=== Create binary distribution"
+	@rm -rf ${BUILD_DIR}/${PLATFORM}/dist-packages
 	@mkdir -p ${BUILD_DIR}/${PLATFORM}/dist-packages
 	@find \
 		${BUILD_DIR}/packages/${PLATFORM} \
@@ -38,7 +40,7 @@ binary-distribution: wheel download-deps
 		-type f \
 		-name '*.whl' \
 		-exec \
-			unzip -q -u '{}' -d ${BUILD_DIR}/${PLATFORM}/dist-packages \; 
+			unzip -q -o -u '{}' -d ${BUILD_DIR}/${PLATFORM}/dist-packages \; 
 	
 
 	@cp ${VENDOR_DIR}/run.sh ${BUILD_DIR}/${PLATFORM}
