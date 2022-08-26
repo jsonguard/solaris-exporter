@@ -61,6 +61,8 @@ download-deps: requirements-file
 		-r ${BUILD_DIR}/requirements-without-vendored.txt \
 		--platform ${PLATFORM} \
 		--only-binary=:all: \
+		--dest ${BUILD_DIR}/packages/${PLATFORM} \
+		--exists-action w \
 		--quiet
 
 
