@@ -30,6 +30,11 @@ How to build this project:
 
     `make PLATFORM=solaris-2.11-sun4v`
 
+    Available platforms:
+
+    - `solaris-2.10-sun4v`
+    - `solaris-2.11-sun4v`
+
 Done! You have these results:
 
 - `*.whl` file - this is only a source of this project without dependencies. Use it if you undestand what you do.
