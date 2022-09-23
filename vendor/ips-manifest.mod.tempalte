@@ -1,0 +1,5 @@
+set name=pkg.fmri value=$PKG_FMRI
+set name=pkg.summary value="$PKG_SUMMARY"
+set name=pkg.description value="$PKG_DESCRIPTION"
+set name=variant.arch value=$PKG_ARCH
+set name=info.classification value=org.opensolaris.category.2008:Applications/Accessories
