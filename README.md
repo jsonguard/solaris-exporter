@@ -59,11 +59,13 @@ How to build this project:
         IPS_FILES_GROUP=bin
     ```
 
+    Currently only `PLATFORM=solaris-2.10-sun4v` is supported.
+
 Done! You have these results:
 
 - `*.whl` file - this is only a source of this project without dependencies. Use it if you understand what you do.
 
-- `*.tag.gz` file - this is distribution that binary-compabilible with any solaris sparc machines. Just untar it and run `bin/init.sh start` script for start solaris exporter.
+- `*.tag.gz` file - this is distribution that binary-compabilible with any solaris sparc machines. Just untar it and run `bin/init.sh start` script to start solaris exporter.
 
 Builds are available in `dist/` directory.
 
