@@ -10,13 +10,13 @@ ROOT_DIR=$(shell pwd)
 
 ### variables for ips packaging
 IPS_PACKAGE_CATEGORY=monitoring
-IPS_PACKAGE_NAME=solaris-exporter
+IPS_PACKAGE_NAME=solaris_exporter
 IPS_PACKAGE_VERSION=${VERSION}
 IPS_PACKAGE_RELEASE_BUILD=5.10
 
 # root directory where pkg will place package files
 # starts with /pub/ 
-PREFIX=site/solaris-exporter
+PREFIX=site/${IPS_PACKAGE_NAME}
 IPS_ROOT_DIR=${PREFIX}
 # grep pattern for directories which pkg will create
 # all the previos folders will be removed from the package manifest
@@ -114,9 +114,9 @@ binary-distribution: wheel download-deps
 		-exec \
 			unzip -q -o -u '{}' -d ${BUILD_DIR}/${PLATFORM}/dist-packages \; 
 	
-
-	@cp ${VENDOR_DIR}/run.sh ${BUILD_DIR}/${PLATFORM}
-	@chmod +x ${BUILD_DIR}/${PLATFORM}/run.sh
+	@mkdir ${BUILD_DIR}/${PLATFORM}/bin
+	@cp ${VENDOR_DIR}/init.sh ${BUILD_DIR}/${PLATFORM}/bin
+	@chmod +x ${BUILD_DIR}/${PLATFORM}/bin/init.sh
 
 
 wheel: build-dir
