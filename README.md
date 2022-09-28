@@ -9,7 +9,7 @@ Requires for work:
 
 - Python 2.7
 
-After installation just start `run.sh` script.
+After installation just start `bin/init.sh` script.
 
 Building
 ---------
@@ -17,6 +17,7 @@ Building
 Requirements:
 
 - Linux machine
+- Python 2.7
 - Python 3.x (for working with poetry) with pip module
     Probably you need to install `python3-pip` package
 - Poetry ([link](https://github.com/python-poetry/poetry))
@@ -62,7 +63,7 @@ Done! You have these results:
 
 - `*.whl` file - this is only a source of this project without dependencies. Use it if you understand what you do.
 
-- `*.tag.gz` file - this is distribution that binary-compabilible with any solaris sparc machines. Just untar it and run `run.sh` script for start solaris exporter.
+- `*.tag.gz` file - this is distribution that binary-compabilible with any solaris sparc machines. Just untar it and run `bin/init.sh start` script for start solaris exporter.
 
 Builds are available in `dist/` directory.
 
