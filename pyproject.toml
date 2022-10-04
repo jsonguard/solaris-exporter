@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "solaris_exporter"
-version = "0.1.5"
+version = "0.2"
 description = "Prometheus exporter for Solaris/SunOS operation systems"
 authors = ["Alexander Golikov <n27051538@gmail.com>"]
 
