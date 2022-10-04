@@ -18,19 +18,26 @@ PROJECT_DIR=$( cd -P "$( dirname "$SOURCE" )/.." >/dev/null 2>&1 && pwd )
 DIST_PACKAGES=${PROJECT_DIR}/dist-packages
 export PYTHONPATH=$DIST_PACKAGES
 
-PID_FILE=./solaris_exporter.pid
+PID_FILE="${PWD}/solaris_exporter.pid"
 
 
 usage() {
 	echo "Usage: "
 	echo "$0 start [application]"
 	echo "$0 stop [application]"
-}
+	echo "$0 restart [application]"
 
 start() {
   if test -f "$PID_FILE"; then
-    echo "${PID_FILE} exist, probably exporter already running? "
-    exit 1
+    PID="$(cat ${PID_FILE})"
+    if ps -p $PID > /dev/null ; then
+      echo "${PID_FILE} exist, probably exporter already running? "
+      exit 1
+    else
+      echo "WARNING: ${PID_FILE} exist, but process with ID: ${PID} is not running"
+      echo "WARNING: ${PID_FILE} is removed"
+      /bin/rm -f ${PID_FILE}
+    fi
   fi
 
   # Run solaris exporter with extra args
@@ -60,6 +67,11 @@ case "$1" in
 	stop)
 		shift
 		stop $* || exit 1
+		;;
+	restart)
+		shift
+		stop $* || exit 1
+		start $* || exit 1
 		;;
 	*)
 		usage && exit 0
