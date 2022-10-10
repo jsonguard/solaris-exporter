@@ -26,6 +26,7 @@ usage() {
 	echo "$0 start [application]"
 	echo "$0 stop [application]"
 	echo "$0 restart [application]"
+}
 
 start() {
   if test -f "$PID_FILE"; then
